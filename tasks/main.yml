@@ -25,6 +25,7 @@
       - gcc
       - python-devel
       - openssl
+      - openssl-devel
   - name: 防火墙启动
     service: name=firewalld state=started enabled=yes
   - name: 防火墙配置
