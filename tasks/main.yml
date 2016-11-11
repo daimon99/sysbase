@@ -4,8 +4,8 @@
     yum: name={{ item }} state=installed enablerepo=epel
     become: true
     with_items:
-      - https://download.postgresql.org/pub/repos/yum/9.6/redhat/rhel-7-x86_64/pgdg-centos96-9.6-3.noarch.rpm
-      - http://centos7.iuscommunity.org/ius-release.rpm
+      - https://download.postgresql.org/pub/repos/yum/9.6/redhat/rhel-{{ansible_distribution_major_version}}-x86_64/pgdg-centos96-9.6-3.noarch.rpm
+      - http://centos{{ansible_distribution_major_version}}.iuscommunity.org/ius-release.rpm
       - git2u
       - nginx
       - supervisor
@@ -29,8 +29,10 @@
       - lsof
   - name: 防火墙启动
     service: name=firewalld state=started enabled=yes
+    ignore_errors: True
   - name: 防火墙配置
     template: >
       src=public.xml.j2 dest=/etc/firewalld/zones/public.xml
+    ignore_errors: True
     notify: restart firewalld
 
